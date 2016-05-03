@@ -30,7 +30,7 @@ public class Payment extends BaseAggregateRoot {
 
 
 
-	Payment(Id aggregateId, ClientData clientData, Money amount) {
+	public Payment(Id aggregateId, ClientData clientData, Money amount) {
 		this.id = aggregateId;
 		this.clientData = clientData;
 		this.amount = amount;
