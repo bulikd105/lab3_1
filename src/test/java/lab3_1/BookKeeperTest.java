@@ -58,4 +58,28 @@ public class BookKeeperTest
 		
 		assertThat(newInvoice.getItems().size(), is(1));
 	}
+	
+	@Test
+	public final void test_setTwo_getCountTax() {
+		clientData 		= new ClientData(Id.generate(), "nieistotne");
+		invoice 		= new Invoice(Id.generate(), clientData);
+		invoiceRequest 	= new InvoiceRequest(clientData);
+		price 			= new Money(10);
+		productData 	= new ProductData(Id.generate(), price, "nieistotne", ProductType.DRUG, new Date());
+		item 			= new RequestItem(productData, 0, new Money(10));
+		
+		invoiceRequest.add(item);
+		invoiceRequest.add(item);
+
+		invoiceFactory 	= Mockito.mock(InvoiceFactory.class);
+		taxPolicy 		= Mockito.mock(TaxPolicy.class);
+		
+		Mockito.when(invoiceFactory.create(invoiceRequest.getClientData())).thenReturn(invoice);
+		Mockito.when(taxPolicy.calculateTax(ProductType.DRUG, price)).thenReturn(new Tax(new Money(1d), "nieistotne"));
+		
+		bookKeeper 		= new BookKeeper(invoiceFactory);
+		newInvoice 		= bookKeeper.issuance(invoiceRequest, taxPolicy);
+		
+		Mockito.verify(taxPolicy, Mockito.times(2)).calculateTax(Mockito.any(ProductType.class), Mockito.any(Money.class));
+	}
 }
