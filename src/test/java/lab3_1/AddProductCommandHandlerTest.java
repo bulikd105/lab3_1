@@ -1,9 +1,5 @@
 package lab3_1;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -45,7 +41,7 @@ public class AddProductCommandHandlerTest
 	SystemContext systemContext;
 	
 	@Test
-	public final void testHandle_testState_reservationHasBeenSaved() 
+	public final void  test_hasReservationBeedSaved()  
 	{
 		// when
 		Product product = new ProductBuilder().build();
@@ -63,7 +59,7 @@ public class AddProductCommandHandlerTest
 	}
 
 	@Test
-	public final void testHandle_testState_reservationRipositoryLoadproperOrder() 
+	public final void test_reservationRipositoryLoadproperOrder() 
 	{
 		Id orderID = new Id("167");
 		Product product = new ProductBuilder().build();
